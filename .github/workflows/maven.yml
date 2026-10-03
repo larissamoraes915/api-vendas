@@ -20,10 +20,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Dar permissao de execucao ao Maven Wrapper
-      run: chmod +x mvnw
-      working-directory: fornecedores-service
-
-    - name: Compilar fornecedores-service com Maven
-      run: ./mvnw clean package -DskipTests
-      working-directory: fornecedores-service
+    - name: Compilar com Maven
+      run: |
+        if [ -d "fornecedores-service" ]; then
+          cd fornecedores-service
+          mvn clean package -DskipTests
+        else
+          echo "Compilando pom.xml da raiz..."
+          mvn clean package -DskipTests
+        fi
