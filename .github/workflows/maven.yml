@@ -19,8 +19,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
+
+    - name: Dar permissao de execucao ao Maven Wrapper
+      run: chmod +x mvnw
+      working-directory: fornecedores-service
 
     - name: Compilar fornecedores-service com Maven
-      run: mvn clean package -DskipTests
+      run: ./mvnw clean package -DskipTests
       working-directory: fornecedores-service
