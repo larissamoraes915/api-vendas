@@ -1,0 +1,24 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: fornecedores-service
+          uri: http://fornecedores-service:8084
+          predicates:
+            - Path=/fornecedores/**
+        - id: fornecedores-prefix
+          uri: http://fornecedores-service:8084
+          predicates:
+            - Path=/fornecedores-service/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
